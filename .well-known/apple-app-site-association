@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "K532CSSP22.com.yvesbj.memoire",
+        "appIDs": ["K532CSSP22.com.yvesbj.memoire"],
+        "paths": ["/auth", "/auth/*"],
+        "components": [
+          { "/": "/auth", "comment": "Liens des e-mails (mot de passe oublié, confirmation d'inscription)" },
+          { "/": "/auth/*" }
+        ]
+      }
+    ]
+  }
+}

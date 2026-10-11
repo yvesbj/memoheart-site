@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>MemoHeart</title>
+<link rel="icon" href="/favicon.png">
+<style>
+  :root { --bg: #283638; --text: #f4f1e8; --muted: #b9bfbb; --gold: #c7ab72; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+  body {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 40px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+  }
+  main { max-width: 30rem; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  img { width: 104px; height: auto; }
+  h1 { margin: 0; font-size: 22px; line-height: 1.3; font-weight: 700; }
+  p { margin: 0; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <img src="/symbole.png" alt="" width="104" height="104">
+  <h1 id="title"></h1>
+  <p id="text"></p>
+</main>
+<script>
+/*
+ * Lien des e-mails de MemoHeart (mot de passe oublié, confirmation d'inscription).
+ * Quand l'app est installée et à jour, iOS l'ouvre directement et cette page
+ * ne s'affiche pas. Sinon (ancienne version de l'app), on passe par la page de
+ * Supabase, qui renvoie ensuite vers l'app. Sur un ordinateur, on ne fait rien :
+ * le lien ne sert que sur le téléphone, et l'ouvrir ici l'userait.
+ */
+(function () {
+  var SUPABASE = 'https://kzarqkrlltbgjvgmzlhq.supabase.co';
+  var TEXTS = {
+    fr: { opening: "Ouverture de MemoHeart…", openingText: "Si rien ne se passe, ouvrez ce lien depuis le téléphone où l'application est installée.",
+          phone: "Ouvrez ce lien sur votre téléphone", phoneText: "Ce lien fonctionne uniquement sur le téléphone où MemoHeart est installée : ouvrez l'e-mail depuis ce téléphone et touchez le bouton.",
+          invalid: "Lien incomplet", invalidText: "Ce lien semble incomplet. Ouvrez de nouveau l'e-mail et touchez le bouton." },
+    en: { opening: "Opening MemoHeart…", openingText: "If nothing happens, open this link on the phone where the app is installed.",
+          phone: "Open this link on your phone", phoneText: "This link only works on the phone where MemoHeart is installed: open the email on that phone and tap the button.",
+          invalid: "Incomplete link", invalidText: "This link looks incomplete. Open the email again and tap the button." },
+    es: { opening: "Abriendo MemoHeart…", openingText: "Si no pasa nada, abre este enlace desde el teléfono donde está instalada la aplicación.",
+          phone: "Abre este enlace en tu teléfono", phoneText: "Este enlace solo funciona en el teléfono donde está instalada MemoHeart: abre el correo en ese teléfono y toca el botón.",
+          invalid: "Enlace incompleto", invalidText: "Este enlace parece incompleto. Vuelve a abrir el correo y toca el botón." },
+    de: { opening: "MemoHeart wird geöffnet…", openingText: "Wenn nichts passiert, öffne diesen Link auf dem Telefon, auf dem die App installiert ist.",
+          phone: "Öffne diesen Link auf deinem Telefon", phoneText: "Dieser Link funktioniert nur auf dem Telefon, auf dem MemoHeart installiert ist: Öffne die E-Mail dort und tippe auf die Schaltfläche.",
+          invalid: "Unvollständiger Link", invalidText: "Dieser Link scheint unvollständig zu sein. Öffne die E-Mail erneut und tippe auf die Schaltfläche." },
+    it: { opening: "Apertura di MemoHeart…", openingText: "Se non succede nulla, apri questo link dal telefono su cui è installata l'app.",
+          phone: "Apri questo link sul tuo telefono", phoneText: "Questo link funziona solo sul telefono su cui è installata MemoHeart: apri l'email da quel telefono e tocca il pulsante.",
+          invalid: "Link incompleto", invalidText: "Questo link sembra incompleto. Riapri l'email e tocca il pulsante." }
+  };
+
+  var params = new URLSearchParams(location.search);
+  var tokenHash = params.get('token_hash') || '';
+  var type = params.get('type') || '';
+  var redirectTo = params.get('redirect_to') || '';
+
+  var lang = '';
+  try { lang = new URL(redirectTo).searchParams.get('lang') || ''; } catch (e) {}
+  if (!TEXTS[lang]) lang = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+  if (!TEXTS[lang]) lang = 'en';
+  var t = TEXTS[lang];
+  document.documentElement.lang = lang;
+
+  function show(title, text) {
+    document.getElementById('title').textContent = title;
+    document.getElementById('text').textContent = text;
+  }
+
+  var valid = tokenHash && (type === 'recovery' || type === 'signup') && redirectTo.indexOf('echos://') === 0;
+  if (!valid) return show(t.invalid, t.invalidText);
+
+  var onPhone = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!onPhone) return show(t.phone, t.phoneText);
+
+  show(t.opening, t.openingText);
+  var verify = SUPABASE + '/auth/v1/verify?' + new URLSearchParams({ token: tokenHash, type: type, redirect_to: redirectTo }).toString();
+  location.replace(verify);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MemoHeart</title>
+<meta name="description" content="MemoHeart, l'application pour garder la mémoire de ceux qu'on aime : leur histoire, leurs photos et les anecdotes racontées par la famille.">
+<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root { --bg: #283638; --text: #f4f1e8; --muted: #b9bfbb; --gold: #c7ab72; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+  body {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 48px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+  }
+  main { max-width: 34rem; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  img { width: 132px; height: auto; }
+  h1 { margin: 0; font: 400 clamp(30px, 8vw, 42px)/1.1 Georgia, "Times New Roman", serif; letter-spacing: 2px; }
+  h1 span { color: var(--gold); }
+  .slogan { margin: -8px 0 8px; color: var(--muted); font-size: 15px; letter-spacing: .3px; }
+  p { margin: 0; }
+  .soon { margin-top: 10px; padding: 10px 18px; border: 1px solid rgba(199,171,114,.45); border-radius: 999px; color: var(--gold); font-size: 14px; font-weight: 600; letter-spacing: .4px; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 13.5px; }
+  a { color: var(--gold); }
+</style>
+</head>
+<body>
+<main>
+  <img src="/symbole.png" alt="" width="132" height="132">
+  <h1>MEMO<span>HEART</span></h1>
+  <p class="slogan">Ils vivent tant qu'on les raconte.</p>
+  <p>Cette page n'existe pas.</p>
+  <p class="soon"><a href="/" style="text-decoration:none">Retour à l'accueil</a></p>
+</main>
+<footer>Contact&nbsp;: <a href="mailto:contact@memoheart.fr">contact@memoheart.fr</a></footer>
+</body>
+</html>
