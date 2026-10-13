@@ -4,11 +4,26 @@
     "details": [
       {
         "appID": "K532CSSP22.com.yvesbj.memoire",
-        "appIDs": ["K532CSSP22.com.yvesbj.memoire"],
-        "paths": ["/auth", "/auth/*"],
+        "appIDs": [
+          "K532CSSP22.com.yvesbj.memoire"
+        ],
+        "paths": [
+          "/auth",
+          "/auth/*",
+          "/n/*"
+        ],
         "components": [
-          { "/": "/auth", "comment": "Liens des e-mails (mot de passe oublié, confirmation d'inscription)" },
-          { "/": "/auth/*" }
+          {
+            "/": "/auth",
+            "comment": "Liens des e-mails (mot de passe oublié, confirmation d'inscription)"
+          },
+          {
+            "/": "/auth/*"
+          },
+          {
+            "/": "/n/*",
+            "comment": "Bouton « Ouvrir MemoHeart » des e-mails de notification"
+          }
         ]
       }
     ]

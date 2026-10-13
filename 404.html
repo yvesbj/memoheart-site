@@ -33,10 +33,30 @@
   <img src="/symbole.png" alt="" width="132" height="132">
   <h1>MEMO<span>HEART</span></h1>
   <p class="slogan">Ils vivent tant qu'on les raconte.</p>
-  <p>Cette page n'existe pas.</p>
-  <p class="soon"><a href="/" style="text-decoration:none">Retour à l'accueil</a></p>
+  <p id="msg">Cette page n'existe pas.</p>
+  <p class="soon" id="back"><a href="/" style="text-decoration:none">Retour à l'accueil</a></p>
 </main>
 <footer>Contact&nbsp;: <a data-u="contact" data-d="memoheart.fr">contact [arobase] memoheart.fr</a></footer>
 <script src="/em.js" defer></script>
+<script>
+// Bouton « Ouvrir MemoHeart » d'un e-mail de notification, ouvert sur un
+// appareil où l'app n'est pas installée (sinon l'app s'ouvre directement).
+if (/^\/n\//.test(location.pathname)) {
+  var texts = {
+    fr: "Ouvrez l'application MemoHeart sur votre téléphone pour voir cette notification.",
+    en: 'Open the MemoHeart app on your phone to see this notification.',
+    es: 'Abre la app MemoHeart en tu teléfono para ver esta notificación.',
+    de: 'Öffne die MemoHeart-App auf deinem Telefon, um diese Benachrichtigung zu sehen.',
+    it: "Apri l'app MemoHeart sul telefono per vedere questa notifica.",
+    zh: '请在手机上打开 MemoHeart 应用查看此通知。',
+    he: 'פתחו את אפליקציית MemoHeart בטלפון כדי לראות את ההתראה.',
+    ar: 'افتح تطبيق MemoHeart على هاتفك لرؤية هذا الإشعار.'
+  };
+  var lang = (navigator.language || 'fr').slice(0, 2);
+  document.getElementById('msg').textContent = texts[lang] || texts.en;
+  if (lang === 'he' || lang === 'ar') document.getElementById('msg').dir = 'rtl';
+  document.getElementById('back').hidden = true;
+}
+</script>
 </body>
 </html>
