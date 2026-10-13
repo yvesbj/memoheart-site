@@ -1,0 +1,5 @@
+# Site volontairement discret avant le lancement.
+# Le dossier .well-known reste lisible : Apple y lit l'autorisation d'ouvrir l'app depuis les liens.
+User-agent: *
+Allow: /.well-known/
+Disallow: /
