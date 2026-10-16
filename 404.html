@@ -58,6 +58,24 @@ if (/^\/n\//.test(location.pathname)) {
   if (lang === 'he' || lang === 'ar') document.getElementById('msg').dir = 'rtl';
   document.getElementById('back').hidden = true;
 }
+
+// Code à scanner d'un livre souvenir, ouvert sur un appareil sans l'app.
+if (/^\/f\//.test(location.pathname)) {
+  var ficheTexts = {
+    fr: "Ouvrez ce lien depuis un téléphone où l'application MemoHeart est installée pour écouter cette anecdote. Seuls les membres de la fiche peuvent l'écouter ; vous pourrez en demander l'accès.",
+    en: 'Open this link on a phone where the MemoHeart app is installed to listen to this story. Only members of the fiche can listen; you can ask for access.',
+    es: 'Abre este enlace en un teléfono con la app MemoHeart instalada para escuchar esta anécdota. Solo los miembros de la ficha pueden escucharla; podrás pedir acceso.',
+    de: 'Öffne diesen Link auf einem Telefon mit der MemoHeart-App, um diese Anekdote zu hören. Nur Mitglieder der Fiche können sie hören; du kannst den Zugang anfragen.',
+    it: "Apri questo link su un telefono con l'app MemoHeart installata per ascoltare questo aneddoto. Solo i membri della scheda possono ascoltarlo; potrai chiedere l'accesso.",
+    zh: '请在已安装 MemoHeart 应用的手机上打开此链接收听这则故事。只有档案成员可以收听，您可以申请访问。',
+    he: 'פתחו את הקישור בטלפון שבו מותקנת אפליקציית MemoHeart כדי להאזין לסיפור. רק חברי הכרטיס יכולים להאזין; אפשר לבקש גישה.',
+    ar: 'افتح هذا الرابط على هاتف مثبّت عليه تطبيق MemoHeart للاستماع إلى هذه الحكاية. يستطيع أعضاء البطاقة فقط الاستماع، ويمكنك طلب الوصول.'
+  };
+  var fLang = (navigator.language || 'fr').slice(0, 2);
+  document.getElementById('msg').textContent = ficheTexts[fLang] || ficheTexts.en;
+  if (fLang === 'he' || fLang === 'ar') document.getElementById('msg').dir = 'rtl';
+  document.getElementById('back').hidden = true;
+}
 </script>
 </body>
 </html>

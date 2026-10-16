@@ -10,7 +10,8 @@
         "paths": [
           "/auth",
           "/auth/*",
-          "/n/*"
+          "/n/*",
+          "/f/*"
         ],
         "components": [
           {
@@ -23,6 +24,10 @@
           {
             "/": "/n/*",
             "comment": "Bouton « Ouvrir MemoHeart » des e-mails de notification"
+          },
+          {
+            "/": "/f/*",
+            "comment": "Code à scanner des livres souvenir : ouvre la fiche dans l'app"
           }
         ]
       }
